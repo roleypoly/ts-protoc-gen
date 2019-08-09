@@ -63,12 +63,10 @@ export class OrphanServiceClient {
   doUnary(
     requestMessage: proto_orphan_pb.OrphanUnaryRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: proto_orphan_pb.OrphanMessage|null) => void
-  ): UnaryResponse;
+  ): Promise<UnaryResponse | null>;
   doUnary(
     requestMessage: proto_orphan_pb.OrphanUnaryRequest,
-    callback: (error: ServiceError|null, responseMessage: proto_orphan_pb.OrphanMessage|null) => void
-  ): UnaryResponse;
+  ): Promise<UnaryResponse | null>;
   doStream(requestMessage: proto_orphan_pb.OrphanStreamRequest, metadata?: grpc.Metadata): ResponseStream<proto_orphan_pb.OrphanMessage>;
 }
 

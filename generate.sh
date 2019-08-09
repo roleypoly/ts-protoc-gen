@@ -14,11 +14,11 @@ case "${unameOut}" in
 esac
 echo "You appear to be running on ${platform}"
 
-echo "Ensuring we have NPM packages installed..."
-npm install
+echo "Ensuring we have yarn packages installed..."
+yarn install
 
 echo "Compiling ts-protoc-gen..."
-npm run build
+yarn run build
 
 PROTOC_VERSION="3.5.1"
 echo "Downloading protoc v${PROTOC_VERSION} for ${platform}..."
