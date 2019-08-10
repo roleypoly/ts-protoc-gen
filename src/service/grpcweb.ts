@@ -324,33 +324,25 @@ function printServiceStub(methodPrinter: Printer, service: RPCDescriptor) {
 function printUnaryStubMethod(printer: CodePrinter, method: RPCMethodDescriptor) {
   printer
              .printLn(`${method.serviceName}Client.prototype.${method.nameAsCamelCase} = function ${method.functionName}(requestMessage, metadata) {`)
-      .indent().printLn(`let cancelled = false;`)
-               .printLn(`const client = grpc.unary(${method.serviceName}.${method.nameAsPascalCase}, {`)
-        .indent().printLn(`request: requestMessage,`)
-                 .printLn(`host: this.serviceHost,`)
-                 .printLn(`metadata: metadata,`)
-                 .printLn(`transport: this.options.transport,`)
-                 .printLn(`debug: this.options.debug,`)
-                 .printLn(`onEnd: function (response) {`)
-          .indent().printLn(`if (cancelled === false) {`)
+      .indent().printLn(`return new Promise((resolve, reject) => {`)
+        .indent().printLn(`grpc.unary(${method.serviceName}.${method.nameAsPascalCase}, {`)
+          .indent().printLn(`request: requestMessage,`)
+                  .printLn(`host: this.serviceHost,`)
+                  .printLn(`metadata: metadata,`)
+                  .printLn(`transport: this.options.transport,`)
+                  .printLn(`debug: this.options.debug,`)
+                  .printLn(`onEnd: function (response) {`)
             .indent().printLn(`if (response.status !== grpc.Code.OK) {`)
               .indent().printLn(`var err = new Error(response.statusMessage);`)
-                       .printLn(`err.code = response.status;`)
-                       .printLn(`err.metadata = response.trailers;`)
-                       .printLn(`Promise.reject(err);`)
+                      .printLn(`err.code = response.status;`)
+                      .printLn(`err.metadata = response.trailers;`)
+                      .printLn(`reject(err);`)
             .dedent().printLn(`} else {`)
-              .indent().printLn(`Promise.resolve(response.message);`)
+              .indent().printLn(`resolve(response.message);`)
             .dedent().printLn(`}`)
           .dedent().printLn(`}`)
-        .dedent().printLn(`}`)
+        .dedent().printLn(`});`)
       .dedent().printLn(`});`)
-             .printLn(`return {`)
-      .indent().printLn(`cancel: function () {`)
-        .indent().printLn(`cancelled = true;`)
-                 .printLn(`Promise.resolve(null);`)
-                 .printLn(`client.close();`)
-      .dedent().printLn(`}`)
-    .dedent().printLn(`};`)
   .dedent().printLn(`};`);
 }
 
@@ -515,11 +507,8 @@ function printUnaryStubMethodTypes(printer: CodePrinter, method: RPCMethodDescri
   printer
              .printLn(`${method.nameAsCamelCase}(`)
       .indent().printLn(`requestMessage: ${method.requestType},`)
-               .printLn(`metadata: grpc.Metadata,`)
-    .dedent().printLn(`): Promise<UnaryResponse | null>;`)
-             .printLn(`${method.nameAsCamelCase}(`)
-      .indent().printLn(`requestMessage: ${method.requestType},`)
-    .dedent().printLn(`): Promise<UnaryResponse | null>;`);
+               .printLn(`metadata?: grpc.Metadata,`)
+    .dedent().printLn(`): Promise<${method.responseType}>;`);
 }
 
 function printServerStreamStubMethodTypes(printer: CodePrinter, method: RPCMethodDescriptor) {

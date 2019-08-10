@@ -36,33 +36,25 @@ function OrphanServiceClient(serviceHost, options) {
 }
 
 OrphanServiceClient.prototype.doUnary = function doUnary(requestMessage, metadata) {
-  let cancelled = false;
-  const client = grpc.unary(OrphanService.DoUnary, {
-    request: requestMessage,
-    host: this.serviceHost,
-    metadata: metadata,
-    transport: this.options.transport,
-    debug: this.options.debug,
-    onEnd: function (response) {
-      if (cancelled === false) {
+  return new Promise((resolve, reject) => {
+    grpc.unary(OrphanService.DoUnary, {
+      request: requestMessage,
+      host: this.serviceHost,
+      metadata: metadata,
+      transport: this.options.transport,
+      debug: this.options.debug,
+      onEnd: function (response) {
         if (response.status !== grpc.Code.OK) {
           var err = new Error(response.statusMessage);
           err.code = response.status;
           err.metadata = response.trailers;
-          Promise.reject(err);
+          reject(err);
         } else {
-          Promise.resolve(response.message);
+          resolve(response.message);
         }
       }
-    }
+    });
   });
-  return {
-    cancel: function () {
-      cancelled = true;
-      Promise.resolve(null);
-      client.close();
-    }
-  };
 };
 
 OrphanServiceClient.prototype.doStream = function doStream(requestMessage, metadata) {

@@ -62,11 +62,8 @@ export class OrphanServiceClient {
   constructor(serviceHost: string, options?: grpc.RpcOptions);
   doUnary(
     requestMessage: proto_orphan_pb.OrphanUnaryRequest,
-    metadata: grpc.Metadata,
-  ): Promise<UnaryResponse | null>;
-  doUnary(
-    requestMessage: proto_orphan_pb.OrphanUnaryRequest,
-  ): Promise<UnaryResponse | null>;
+    metadata?: grpc.Metadata,
+  ): Promise<proto_orphan_pb.OrphanMessage>;
   doStream(requestMessage: proto_orphan_pb.OrphanStreamRequest, metadata?: grpc.Metadata): ResponseStream<proto_orphan_pb.OrphanMessage>;
 }
 

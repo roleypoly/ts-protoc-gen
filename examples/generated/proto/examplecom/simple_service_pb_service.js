@@ -65,33 +65,25 @@ function SimpleServiceClient(serviceHost, options) {
 }
 
 SimpleServiceClient.prototype.doUnary = function doUnary(requestMessage, metadata) {
-  let cancelled = false;
-  const client = grpc.unary(SimpleService.DoUnary, {
-    request: requestMessage,
-    host: this.serviceHost,
-    metadata: metadata,
-    transport: this.options.transport,
-    debug: this.options.debug,
-    onEnd: function (response) {
-      if (cancelled === false) {
+  return new Promise((resolve, reject) => {
+    grpc.unary(SimpleService.DoUnary, {
+      request: requestMessage,
+      host: this.serviceHost,
+      metadata: metadata,
+      transport: this.options.transport,
+      debug: this.options.debug,
+      onEnd: function (response) {
         if (response.status !== grpc.Code.OK) {
           var err = new Error(response.statusMessage);
           err.code = response.status;
           err.metadata = response.trailers;
-          Promise.reject(err);
+          reject(err);
         } else {
-          Promise.resolve(response.message);
+          resolve(response.message);
         }
       }
-    }
+    });
   });
-  return {
-    cancel: function () {
-      cancelled = true;
-      Promise.resolve(null);
-      client.close();
-    }
-  };
 };
 
 SimpleServiceClient.prototype.doServerStream = function doServerStream(requestMessage, metadata) {
@@ -220,33 +212,25 @@ SimpleServiceClient.prototype.doBidiStream = function doBidiStream(metadata) {
 };
 
 SimpleServiceClient.prototype.delete = function pb_delete(requestMessage, metadata) {
-  let cancelled = false;
-  const client = grpc.unary(SimpleService.Delete, {
-    request: requestMessage,
-    host: this.serviceHost,
-    metadata: metadata,
-    transport: this.options.transport,
-    debug: this.options.debug,
-    onEnd: function (response) {
-      if (cancelled === false) {
+  return new Promise((resolve, reject) => {
+    grpc.unary(SimpleService.Delete, {
+      request: requestMessage,
+      host: this.serviceHost,
+      metadata: metadata,
+      transport: this.options.transport,
+      debug: this.options.debug,
+      onEnd: function (response) {
         if (response.status !== grpc.Code.OK) {
           var err = new Error(response.statusMessage);
           err.code = response.status;
           err.metadata = response.trailers;
-          Promise.reject(err);
+          reject(err);
         } else {
-          Promise.resolve(response.message);
+          resolve(response.message);
         }
       }
-    }
+    });
   });
-  return {
-    cancel: function () {
-      cancelled = true;
-      Promise.resolve(null);
-      client.close();
-    }
-  };
 };
 
 exports.SimpleServiceClient = SimpleServiceClient;
