@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@bazel/hide-bazel-files@~0.33.1":
-  version "0.33.1"
-  resolved "https://registry.yarnpkg.com/@bazel/hide-bazel-files/-/hide-bazel-files-0.33.1.tgz#576fc89c7df70ad47a3c3d45de4e4a2d325cb8bc"
-  integrity sha512-PgpmPG+Cn/o5eDOAg3hKdqpSWAdBmfo1kpLCj6L+gdZKduEI9jgCqYKlHLTMlYvOsj4TgoZiHx1wqeGsOUh6dw==
+"@bazel/hide-bazel-files@~0.38.2":
+  version "0.38.2"
+  resolved "https://registry.yarnpkg.com/@bazel/hide-bazel-files/-/hide-bazel-files-0.38.2.tgz#3c4c4ed025e8193851a21685898ce24cf8851945"
+  integrity sha512-Twwxneh3VXE6EHC82R2v799kHGuVNfs9l0D+N+PrgE0yTpbCek4AbowFp2HQznlYqIswicfeMQGYVVKX9+s7ww==
 
 "@bazel/karma@~0.33.1":
   version "0.33.1"
