@@ -40,10 +40,10 @@
     semver "5.6.0"
     tmp "0.0.33"
 
-"@bazel/typescript@~0.33.1":
-  version "0.33.1"
-  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-0.33.1.tgz#1d71db658345bd0f306dac0eee92c557fe2266c9"
-  integrity sha512-C9k4SJThkCXEPUYhTvcwCuqLZcrusCDojEBUpnWPpRpN/T2rtxqPi581LfUIGtQszU62TeTin8pv8XRc1pyjbA==
+"@bazel/typescript@~2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-2.2.0.tgz#f2d3dce8715d574fe3146f19fdb8479abcc4d608"
+  integrity sha512-Thf8pXntBzE3EvJtyiTBNsfIf1QnYmGPQmUSGLcKUuuFoplUVYShMRHaxBoPZmYsnD/x+BFLgUKIzlXiEQpGqQ==
   dependencies:
     protobufjs "6.8.8"
     semver "5.6.0"

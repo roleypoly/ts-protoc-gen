@@ -34,7 +34,7 @@
   "devDependencies": {
     "@bazel/hide-bazel-files": "~0.38.2",
     "@bazel/karma": "~0.33.1",
-    "@bazel/typescript": "~0.33.1",
+    "@bazel/typescript": "~2.2.0",
     "@improbable-eng/grpc-web": "^0.9.1",
     "@types/chai": "^4.2.3",
     "@types/google-protobuf": "^3.2.7",
